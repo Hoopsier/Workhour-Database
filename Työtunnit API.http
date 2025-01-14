@@ -1,0 +1,6 @@
+@Työtunnit_API_HostAddress = http://localhost:5016
+
+GET {{Työtunnit_API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
