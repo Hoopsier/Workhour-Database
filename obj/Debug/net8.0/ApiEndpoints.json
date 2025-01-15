@@ -87,5 +87,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ty\u00F6tunnit_API.Controllers.WorkhoursController",
+    "Method": "AddItem",
+    "RelativePath": "api/Workhours",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "body",
+        "Type": "Ty\u00F6tunnit_API.Models.Workhour",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

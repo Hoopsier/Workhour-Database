@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Työtunnit API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ec45d76f20ba209215b69701a7a9e1d5f883bb1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Työtunnit API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Työtunnit API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

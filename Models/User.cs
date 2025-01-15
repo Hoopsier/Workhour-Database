@@ -1,4 +1,6 @@
-﻿namespace Työtunnit_API.Models
+﻿using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
+
+namespace Työtunnit_API.Models
 {
     public class User
     {

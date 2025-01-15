@@ -8,10 +8,10 @@ namespace Työtunnit_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+   public class UsersController : ControllerBase
     {
-        private readonly UserContext _dbContext;
-        public UsersController(UserContext dbContext)
+        private readonly DataContext _dbContext;
+        public UsersController(DataContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -34,7 +34,7 @@ namespace Työtunnit_API.Controllers
         [HttpGet("Name/{tname}")]
         public ActionResult GetUserByName(string tname) //id is used instead of email, due emails basically being an ID
         {
-            
+
             try
             {
                 var user = _dbContext.Users.Where(t => t.Name.Contains(tname));
@@ -103,7 +103,33 @@ namespace Työtunnit_API.Controllers
             catch (Exception ex)
             {
                 return BadRequest("Tapahtui virhe. Lue lisää: " + ex.InnerException);
-                
+
+            }
+        }
+        
+    }
+    [Route("api/[controller]")]
+    [ApiController]
+    public class WorkhoursController : ControllerBase
+    {
+        private readonly DataContext _dbContext;
+        public WorkhoursController(DataContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+        [HttpPost]
+        public ActionResult AddItem([FromBody] Workhour body)
+        {
+            try
+            {
+                _dbContext.Workhours.Add(body);
+                _dbContext.SaveChanges();
+                return Ok("Successfully added hours for "+body.UserName);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest("Error: " + ex);
             }
         }
     }

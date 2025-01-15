@@ -1,5 +1,6 @@
 using Työtunnit_API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Työtunnit_API
 {
@@ -9,8 +10,9 @@ namespace Työtunnit_API
         {
 
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<UserContext>(options =>
-           options.UseSqlServer(builder.Configuration.GetConnectionString("UserContext")));
+            builder.Services.AddDbContext<DataContext>(options =>
+           options.UseSqlServer(builder.Configuration.GetConnectionString("DataContext")));
+            
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
