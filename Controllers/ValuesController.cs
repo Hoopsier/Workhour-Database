@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Security.Cryptography;
 using Työtunnit_API.Models;
 
 namespace Työtunnit_API.Controllers
@@ -50,8 +51,8 @@ namespace Työtunnit_API.Controllers
                 return BadRequest("Tapahtui virhe. Lue lisää: " + ex.InnerException);
             }
         }
-        // POST: api/User
-        [HttpPost]
+        // POST: api/Users/Register
+        [HttpPost("Register")]
         public ActionResult Register(string _Name, string _Password)
         {
             try
@@ -63,13 +64,23 @@ namespace Työtunnit_API.Controllers
                 user.Role = 1;
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();
-                return Ok("Käyttäjä luotu onnistuneesti");
+                try
+                {
+                    var USER = _dbContext.Users.Where(t => t.Name == _Name && t.Password == _Password);
+                    return Ok(USER);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest("Maaaaan another error?" + e);
+                }
+                
             }
             catch (Exception ex)
             {
                 return BadRequest("Tapahtui virhe. Lue lisää: " + ex.InnerException);
             }
         }
+        
         // GET: api/User
         [HttpGet("Login")]
         public ActionResult Login(int _Id, string _Password)
@@ -122,6 +133,8 @@ namespace Työtunnit_API.Controllers
         {
             try
             {
+                var Person = _dbContext.Users.Find(body.UId);
+                body.UserName = Person.Name;
                 _dbContext.Workhours.Add(body);
                 _dbContext.SaveChanges();
                 return Ok("Successfully added hours for "+body.UserName);
@@ -131,6 +144,71 @@ namespace Työtunnit_API.Controllers
 
                 return BadRequest("Error: " + ex);
             }
+        }
+        [HttpGet("FetchUserHours")]
+        public ActionResult FetchUsrData(int _UId, int _Role)
+        {
+            switch (_Role) 
+            {
+                case 1 or 2:
+                    try
+                    {
+                        var userHours = _dbContext.Workhours.Where(t => t.UId == _UId);
+                        return Ok(userHours);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        return BadRequest("Catch error: " + ex);
+                    }
+                case 3:
+                    try
+                    {
+                        var userHours = _dbContext.Workhours;
+                        return Ok(userHours);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        return BadRequest("Catch error: " + ex);
+                    }
+                default:
+                    return BadRequest("No Access at role 0");
+            }
+        }
+        [HttpPost("ModifyHours")]
+        public ActionResult AdminModifyHours(int _Role, int _Id, string _Type, int _NewContentInt,string? _NewContentStr)
+        {
+            if (_Role != 3 && _Role != 2) { return BadRequest("Not an Admin or Project leader"); }
+            try
+            {
+                var Hours = _dbContext.Workhours.Find(_Id);
+                var Edited = "";
+                switch (_Type)
+                {
+                    case "Edit Hours":
+                        Hours.Hours = _NewContentInt;
+                        Edited = "Edited Hours";
+                    break;
+                    case "Delete Hours":
+                        if (_Role != 3) { return BadRequest("Not an Admin"); }
+                        _dbContext.Remove(Hours);
+                        Edited = "Deleted Hours";
+                    break;
+                    case "Comment":
+                        Hours.Comment = _NewContentStr;
+                        Edited = "Commented Data";
+                    break;
+                }
+                _dbContext.SaveChanges();
+                return Ok(Edited+" from id "+_Id);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest("ModHours Error: " + ex);
+            }
+
         }
     }
 }

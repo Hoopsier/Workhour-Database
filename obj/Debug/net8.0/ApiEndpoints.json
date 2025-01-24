@@ -11,27 +11,6 @@
   },
   {
     "ContainingType": "Ty\u00F6tunnit_API.Controllers.UsersController",
-    "Method": "Register",
-    "RelativePath": "api/Users",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "_Name",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "_Password",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Ty\u00F6tunnit_API.Controllers.UsersController",
     "Method": "Login",
     "RelativePath": "api/Users/Login",
     "HttpMethod": "GET",
@@ -69,6 +48,27 @@
   },
   {
     "ContainingType": "Ty\u00F6tunnit_API.Controllers.UsersController",
+    "Method": "Register",
+    "RelativePath": "api/Users/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "_Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_Password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ty\u00F6tunnit_API.Controllers.UsersController",
     "Method": "PriviledgeChange",
     "RelativePath": "api/Users/UpdateUserData",
     "HttpMethod": "PUT",
@@ -100,6 +100,63 @@
         "Name": "body",
         "Type": "Ty\u00F6tunnit_API.Models.Workhour",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ty\u00F6tunnit_API.Controllers.WorkhoursController",
+    "Method": "FetchUsrData",
+    "RelativePath": "api/Workhours/FetchUserHours",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "_UId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_Role",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ty\u00F6tunnit_API.Controllers.WorkhoursController",
+    "Method": "AdminModifyHours",
+    "RelativePath": "api/Workhours/ModifyHours",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "_Role",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_Type",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "_NewContentInt",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_NewContentStr",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
